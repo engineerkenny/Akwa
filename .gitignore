@@ -1,32 +1,110 @@
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
 
-# Precompiled Headers
-*.gch
-*.pch
+// This program is about CeasarCipher Substitution and it is supervised by Ass. Prof. Devrim Sereal
+// The program is written by Kenneth Osuagwu with Registration number 20142859 in I.S.E dept
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+class CaesarCipher {
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+     private final String ALPHABET = "abcdefghijklmnopqrstuvwxyz";
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+     public String encrypt(String plainText,int shiftKey)
 
-# Debug files
-*.dSYM/
+     {
+
+          
+
+           String cipherText="";
+
+           for(int i=0;i<plainText.length();i++)
+
+           {
+
+        	   int charPosition = ALPHABET.indexOf(plainText.charAt(i));
+
+                int keyVal = (charPosition + shiftKey )%26;
+
+                
+                char replaceval = this.ALPHABET.charAt(keyVal);
+                
+                cipherText += replaceval;
+
+           }
+
+          return  cipherText;
+          
+
+     }
+
+     public String decrypt(String cipherText, int shiftKey)
+
+     {
+
+           
+
+           String plainText="";
+
+           for(int i=0;i<cipherText.length();i++)
+
+           {
+
+                int charPosition = this.ALPHABET.indexOf(cipherText.charAt(i));
+
+                int keyVal = (charPosition-shiftKey)%26;
+                
+                if (keyVal < 0) {
+                	keyVal = this.ALPHABET.length() + keyVal;
+                }
+                	
+                
+             
+
+                
+
+                char replaceVal = this.ALPHABET.charAt(keyVal);
+
+                plainText += replaceVal;
+
+           }
+
+           return plainText;
+
+     }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+// This is the execution class of the program
+
+import javax.swing.JOptionPane;
+
+
+public class CaesarExe {
+
+	public static void main(String[] args) {
+		String plainText = JOptionPane.showInputDialog(null, "Enter your Text");
+		int Shiftkey = 5;
+		
+		CaesarCipher cc = new CaesarCipher();
+		
+		String cipherText = cc .encrypt(plainText, Shiftkey);
+		//The next line displays the plain text
+		JOptionPane.showMessageDialog(null,"Your plain text:" + plainText );
+		
+		//The next line displays the cipher Text
+		JOptionPane.showMessageDialog(null,"Your cipher Text:" + cipherText );
+		
+		String dplainText = cc.decrypt(cipherText, Shiftkey);
+		System.out.println ("Your Plain Text:" + dplainText);
+
+	}
+
+}
